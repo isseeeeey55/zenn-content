@@ -16,8 +16,6 @@ AWS Glue Studioの `Monitoring` ページで、ジョブ実行状況を確認す
 - 表示対象の日付指定が30日間まで
 - ジョブ実行履歴の件数が1,000件まで
 
-![](/images/e46c0e4cbd89bd/glue_studio.png)
-
 https://docs.aws.amazon.com/ja_jp/glue/latest/ug/what-is-glue-studio.html
 
 ## boto3
