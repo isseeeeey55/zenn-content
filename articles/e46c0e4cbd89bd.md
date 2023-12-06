@@ -4,6 +4,7 @@ emoji: "🙌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [aws, glue, python, boto3]
 published: true
+publication_name: "iret"
 ---
 
 ## このページについて
