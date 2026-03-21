@@ -3,16 +3,58 @@ title: "【AWS】2026/03/21 のアップデートまとめ"
 emoji: "📝"
 type: "tech"
 topics: ["aws", "update"]
-published: false
+published: true
 ---
 
 ## はじめに
 
-2026年3月21日のAWSアップデートでは、4件の機能強化が発表されました。特に注目すべきは、AWS NeuronがAmazon EKSでDynamic Resource Allocation（DRA）をサポートしたことで、機械学習ワークロードのリソース管理が大幅に改善される点です。また、AWS DataSyncでのSecrets Manager対応やAmazon RedshiftのIAM Identity Center連携強化など、セキュリティと運用性の向上に焦点を当てたアップデートが目立ちます。
+2026年3月21日のAWSアップデートでは、6件の機能強化が発表されました。特に注目すべきは、Amazon Bedrock AgentCore RuntimeへのWebRTCサポート追加と、Amazon EKS Provisioned Control Planeの99.99% SLA・8XLティア新設です。加えて、AWS NeuronのEKSでのDynamic Resource Allocation（DRA）サポートによるMLワークロード管理の改善、AWS DataSyncのSecrets Manager対応、Amazon RedshiftのIAM Identity Center連携強化など、AIワークロード基盤とセキュリティの両面で充実した内容となっています。
 
 ## 注目アップデート深掘り
 
+### Amazon Bedrock AgentCore RuntimeにWebRTCサポートを追加
+
+AgentCore Runtimeに、既存のWebSocketに加えてWebRTCプロトコルが追加されました。ブラウザやモバイルアプリケーションでの音声AIエージェント構築において、ピアツーピア・UDPベースの低レイテンシー双方向ストリーミングが可能になります。
+
+**なぜこのアップデートが重要なのか**
+
+WebSocketはTCPベースの永続接続でテキスト・音声のストリーミングには適していますが、リアルタイムの音声・映像通信ではUDPベースのWebRTCに劣ります。これまでリアルタイム音声AIエージェントの構築には独自のメディアサーバー構成が必要でしたが、AgentCore Runtimeが直接WebRTCをサポートしたことで開発の複雑さが大幅に軽減されます。
+
+**TURNリレーの構成オプション**
+
+NAT越えが必要な場合、以下の3つの選択肢が用意されています：
+
+- **Amazon Kinesis Video Streams マネージドTURN**（推奨）: フルマネージドでAWS IAM統合、追加のインフラ管理不要
+- **サードパーティTURNプロバイダー**: Twilio、Xirsysなど既存のTURNインフラを活用
+- **セルフホストTURN**: coturnなどを自前運用、完全なカスタマイズが可能
+
+**対応リージョン**
+
+東京リージョンを含む14リージョンで利用可能です（米国3、アジア太平洋5、欧州5、カナダ1）。AWSからはAmazon Nova Sonicを使った音声エージェントのサンプルや、Pipecat・LiveKit・Strands Agents SDKとの連携実装例も公開されています。
+
+### Amazon EKS Provisioned Control Planeの99.99% SLAと8XLティア
+
+Amazon EKS Provisioned Control Planeに対して、SLAが従来の99.95%から99.99%に引き上げられました。また、新たに8XLスケーリングティアが追加され、4XLティアの2倍のKubernetes APIサーバーリクエスト処理能力を提供します。
+
+**なぜこのアップデートが重要なのか**
+
+99.95%から99.99%への引き上げは、年間ダウンタイム許容量で見ると約26分から約5分への大幅な改善です。1分間隔での可用性測定が行われるため、ミッションクリティカルなワークロードの信頼性保証が強化されます。
+
+**8XLティアのユースケース**
+
+- 超大規模AI/MLトレーニングクラスター
+- ハイパフォーマンスコンピューティング（HPC）
+- 大規模データ処理パイプライン
+- 数千ノード規模のクラスター運用
+
+EKS Provisioned Control Planeが提供されている全リージョンで利用可能です。
+
 ### AWS NeuronがEKSでDynamic Resource Allocation（DRA）をサポート
+
+:::message
+**AWS Neuronとは？**
+AWS Neuronは、AWSの独自AIチップ「Trainium」（学習用）および「Inferentia」（推論用）向けのSDKです。コンパイラ、ランタイム、プロファイラなどを含み、PyTorchやTensorFlowで書かれたMLモデルをこれらのチップ上で効率的に動作させるためのソフトウェアスタックを提供します。NVIDIAのCUDAに相当するAWS独自チップ向けの開発基盤と捉えるとわかりやすいでしょう。
+:::
 
 このアップデートは、機械学習ワークロードのリソース管理に革命をもたらす可能性があります。従来のKubernetesでは、GPU等の特殊なハードウェアリソースの割り当てはDevice Pluginに依存しており、細かな制御が困難でした。しかし、DRAの導入により、ハードウェアトポロジーとデバイス属性が直接Kubernetesスケジューラに公開され、より柔軟で効率的なリソース管理が可能になります。
 
@@ -215,13 +257,15 @@ DataSyncのSecrets Manager対応は、データ移行プロジェクトや定期
 
 | サービス | アップデート内容 | 概要 |
 |----------|------------------|------|
-| [AWS Firewall Manager](https://aws.amazon.com/about-aws/whats-new/2026/03/aws-firewall-manager-launches-ap-nz/) | アジアパシフィック（ニュージーランド）リージョン対応 | 複数アカウント・リージョンにまたがるセキュリティポリシーの統一管理がニュージーランドリージョンで利用可能に |
+| [Amazon Bedrock](https://aws.amazon.com/about-aws/whats-new/2026/03/amazon-bedrock-webrtc/) | AgentCore RuntimeにWebRTCサポート追加 | 低レイテンシーなリアルタイム双方向ストリーミングで音声AIエージェント構築が容易に |
+| [Amazon EKS](https://aws.amazon.com/about-aws/whats-new/2026/03/amazon-eks-announces-sla-8xl-scaling-tier/) | Provisioned Control Planeの99.99% SLAと8XLティア | SLA引き上げと最大規模のスケーリングティア追加でミッションクリティカルなワークロードに対応 |
+| [AWS Neuron](https://aws.amazon.com/about-aws/whats-new/2026/03/neuron-eks-dra-support/) | EKSでDynamic Resource Allocation対応 | TrainiumインスタンスのリソースをKubernetesネイティブな方法で動的に割り当て、MLワークロードの効率化を実現 |
 | [AWS DataSync](https://aws.amazon.com/about-aws/whats-new/2026/03/aws-datasync-secrets-manager/) | 全ロケーションタイプでSecrets Manager対応 | すべてのファイルシステムとの連携において、認証情報をSecrets Managerで安全に管理可能 |
-| [AWS Neuron](https://aws.amazon.com/about-aws/whats-new/2026/03/neuron-eks-dra-support/) | EKSでDynamic Resource Allocation対応 | TrainiumインスタンスのリソースをKubernetesネイティブな方法で動的に割り当て、ML ワークロードの効率化を実現 |
+| [AWS Firewall Manager](https://aws.amazon.com/about-aws/whats-new/2026/03/aws-firewall-manager-launches-ap-nz/) | アジアパシフィック（ニュージーランド）リージョン対応 | セキュリティポリシーの統一管理がニュージーランドリージョンで利用可能に |
 | [Amazon Redshift](https://aws.amazon.com/about-aws/whats-new/2026/03/redshift-federated-permissions-idc-mrr/) | IAM Identity Center連携マルチリージョン対応 | 複数リージョンのRedshiftクラスターに対して統一されたアクセス管理が可能 |
 
 ## まとめ
 
-今回のアップデートは、特に大規模システムの運用効率化とセキュリティ強化に焦点を当てた内容となっています。Neuron DRAサポートは機械学習基盤の運用を劇的に改善する可能性を秘めており、DataSyncのSecrets Manager対応はデータガバナンスの観点で重要な前進です。
+今日のアップデートは、AIワークロードの実行基盤強化とKubernetesエコシステムの成熟という2つのテーマが際立つ内容でした。Bedrock AgentCore RuntimeのWebRTCサポートはリアルタイム音声AIエージェントの実用性を高め、EKSの99.99% SLAと8XLティアはミッションクリティカルなコンテナワークロードの信頼性を新たな水準に引き上げます。
 
-全体的な傾向として、AWSは単純な機能追加よりも、既存サービス間の連携強化や運用負荷軽減に注力していることが伺えます。特に、KubernetesやIAM Identity Centerのようなエコシステム全体を意識したアップデートが増えており、これらを適切に活用することで、より効率的で安全なクラウドインフラの構築が可能になるでしょう。
+Neuron DRAドライバーによるMLワークロードのリソース管理改善と、DataSyncのSecrets Manager統合による認証情報管理の一元化も、日々の運用を着実に効率化するアップデートです。全体として、AWSがAI時代の要求に応える形でコンピューティング基盤を急速に進化させていることが改めて実感できるラインナップとなりました。
