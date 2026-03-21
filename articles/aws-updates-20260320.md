@@ -1,6 +1,6 @@
 ---
 title: "【AWS】2026/03/20 のアップデートまとめ"
-emoji: "📝"
+emoji: "⚡"
 type: "tech"
 topics: ["aws", "update"]
 published: true
