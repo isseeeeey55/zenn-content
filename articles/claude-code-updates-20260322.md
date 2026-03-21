@@ -3,7 +3,7 @@ title: "【Claude Code】v2.1.81 リリースノートまとめ"
 emoji: "🔒"
 type: "tech"
 topics: ["claudecode", "ai", "cli"]
-published: false
+published: true
 ---
 
 ![](/images/claude-code-updates-20260322/header.png)
