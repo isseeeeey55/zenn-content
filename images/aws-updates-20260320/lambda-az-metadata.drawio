@@ -47,9 +47,12 @@
           <mxGeometry x="230" y="170" width="110" height="20" as="geometry" />
         </mxCell>
 
-        <!-- Lambda → RDS in same AZ (green, fast) -->
-        <mxCell id="e-same-az" value="同一AZ&lt;br&gt;低レイテンシー" style="html=1;endArrow=block;startArrow=none;endFill=1;strokeColor=#7AA116;strokeWidth=3;rounded=0;fontSize=10;fontColor=#7AA116;verticalAlign=bottom;" edge="1" source="lambda-a" target="rds-a" parent="az-a">
+        <!-- Lambda → RDS in same AZ (green, fast) — label removed from edge -->
+        <mxCell id="e-same-az" style="html=1;endArrow=block;startArrow=none;endFill=1;strokeColor=#7AA116;strokeWidth=3;rounded=0;" edge="1" source="lambda-a" target="rds-a" parent="az-a">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-same-az-label" value="同一AZ 低レイテンシー" style="text;html=1;fontSize=10;fontColor=#7AA116;verticalAlign=top;align=center;" vertex="1" parent="az-a">
+          <mxGeometry x="100" y="55" width="140" height="18" as="geometry" />
         </mxCell>
 
         <!-- NEW badge on Lambda -->
@@ -96,9 +99,12 @@
           <mxGeometry x="115" y="325" width="100" height="20" as="geometry" />
         </mxCell>
 
-        <!-- Cross-AZ arrow (red, dashed, avoided) -->
-        <mxCell id="e-cross-az" value="クロスAZ&lt;br&gt;コスト・レイテンシー増" style="html=1;endArrow=block;startArrow=none;endFill=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;rounded=0;fontSize=10;fontColor=#DD344C;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="lambda-a" target="rds-c" parent="region">
+        <!-- Cross-AZ arrow (red, dashed, avoided) — label as separate text -->
+        <mxCell id="e-cross-az" style="html=1;endArrow=block;startArrow=none;endFill=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="lambda-a" target="rds-c" parent="region">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cross-az-label" value="クロスAZ コスト・レイテンシー増" style="text;html=1;fontSize=10;fontColor=#DD344C;verticalAlign=top;align=center;" vertex="1" parent="region">
+          <mxGeometry x="300" y="195" width="220" height="18" as="geometry" />
         </mxCell>
 
         <!-- Legend -->
