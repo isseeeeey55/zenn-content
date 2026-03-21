@@ -36,7 +36,7 @@
           <mxGeometry x="50" y="80" width="68" height="68" as="geometry" />
         </mxCell>
         <mxCell id="lambda-a-label" value="Lambda 関数" style="text;html=1;fontSize=11;verticalAlign=top;align=center;fontColor=#232F3E;" vertex="1" parent="az-a">
-          <mxGeometry x="30" y="155" width="110" height="20" as="geometry" />
+          <mxGeometry x="30" y="170" width="110" height="20" as="geometry" />
         </mxCell>
 
         <!-- RDS in AZ-a -->
@@ -44,7 +44,7 @@
           <mxGeometry x="250" y="80" width="68" height="68" as="geometry" />
         </mxCell>
         <mxCell id="rds-a-label" value="RDS (Primary)" style="text;html=1;fontSize=11;verticalAlign=top;align=center;fontColor=#232F3E;" vertex="1" parent="az-a">
-          <mxGeometry x="230" y="155" width="110" height="20" as="geometry" />
+          <mxGeometry x="230" y="170" width="110" height="20" as="geometry" />
         </mxCell>
 
         <!-- Lambda → RDS in same AZ (green, fast) -->
@@ -85,7 +85,7 @@
           <mxGeometry x="130" y="80" width="68" height="68" as="geometry" />
         </mxCell>
         <mxCell id="rds-c-label" value="RDS (Standby)" style="text;html=1;fontSize=11;verticalAlign=top;align=center;fontColor=#232F3E;" vertex="1" parent="az-c">
-          <mxGeometry x="110" y="155" width="110" height="20" as="geometry" />
+          <mxGeometry x="110" y="170" width="110" height="20" as="geometry" />
         </mxCell>
 
         <!-- ElastiCache in AZ-c -->
